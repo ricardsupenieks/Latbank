@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
 
 class AccountController extends Controller
@@ -16,7 +16,7 @@ class AccountController extends Controller
         return view('account', ['account' => $account[0]]);
     }
 
-    public function deposit(Request $request): Redirector
+    public function deposit(Request $request): RedirectResponse
     {
 
         $id = $request->get('id');

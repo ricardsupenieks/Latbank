@@ -8,8 +8,11 @@
                         <h1 class="text-xl leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                             Account: {{$account['account_number']}}
                         </h1>
-                        <div class="pb-10">
-                            Balance : {{$account['balance']}} {{$account['currency']}}
+                        <div class="">
+                            Balance : {{number_format($account['balance'],2)}} {{$account['currency']}}
+                        </div>
+                        <div class="py-5">
+                            Opened at : {{substr($account['created_at'], 0, strpos($account['created_at'], "T"))}}
                         </div>
                         <div class="flex flex-row space-x-2">
                             <form class="space-y-4 md:space-y-6 " action="/account/deposit" method="post">

@@ -11,7 +11,7 @@
                                 {{$account['currency']}}
                             </p>
                             <p class="font-bold text-2xl mb-1">
-                                {{$account['balance']}}
+                                {{number_format($account['balance'],2)}}
                             </p>
                         </div>
                     </a>
