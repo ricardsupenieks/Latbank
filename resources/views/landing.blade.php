@@ -1,17 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Latbank</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-</head>
-<body>
-<header>
+@extends('layout')
 
-</header>
-<main>
+@section('content')
     <div class="flex">
         <img src="https://preview.redd.it/cz1yplijz4z71.png?width=640&crop=smart&auto=webp&s=06cbcd5f6bbb899a10c69664a8cfbef13892c7ff" class="">
 
@@ -27,8 +16,8 @@
                     <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
                 </button>
              </div>
+            <a href="/login" class="text-base text-center"> Log in</a>
         </span>
+
     </div>
-</main>
-</body>
-</html>
+@endsection
