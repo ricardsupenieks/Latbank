@@ -2,11 +2,12 @@
 
 @section('content')
     <div class="flex">
-        <img src="https://preview.redd.it/cz1yplijz4z71.png?width=640&crop=smart&auto=webp&s=06cbcd5f6bbb899a10c69664a8cfbef13892c7ff" class="">
+        <img src="/images/latbankRed.webp" class="">
 
-        <span class="self-center text-9xl font-semibold whitespace-nowrap dark:text-white">Latbank
-            <p class="text-3xl mt-10">
-                World's worst fund management and crypto market website
+        <span class="self-center text-9xl font-semibold whitespace-nowrap text-white">Latbank
+            <p class="text-3xl mt-10 text-white">
+                Tired of swedish banks having a grip over your banking? Us too.<br>
+                Take back what's rightfully yours!
             </p>
              <div class="flex md:order-2 justify-center">
 

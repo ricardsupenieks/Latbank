@@ -10,7 +10,7 @@ class CreateAccountController extends Controller
     public function showForm(): View
     {
 
-        return view('accountsCreate');
+        return view('accountCreate');
     }
 
     public function execute(): Redirector
