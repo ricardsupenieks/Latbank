@@ -4,7 +4,7 @@ namespace App;
 
 use App\Models\Account;
 
-class generateAccountNumber
+class GenerateAccountNumber
 {
     function generateAccountNumber()
     {

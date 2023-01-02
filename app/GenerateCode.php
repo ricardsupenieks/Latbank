@@ -4,7 +4,7 @@ namespace App;
 
 use App\Models\Code;
 
-class generateCode
+class GenerateCode
 {
     function generateCode()
     {
