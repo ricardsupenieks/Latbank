@@ -5,7 +5,7 @@
         <p class="text-5xl font-semibold text-white">Welcome, {{ auth()->user()->name }}</p>
     </div>
     @if($firstTimeLogin === true)
-            <div class="bg-slate-800 bg-opacity-50 flex justify-center items-center absolute top-0 right-0 bottom-0 left-0">
+            <div data-modal-backdrop="static" class="bg-slate-800 bg-opacity-50 flex justify-center items-center absolute top-0 right-0 bottom-0 left-0">
                 <div class="bg-white px-16 py-14 rounded-md text-center">
                     <div class="text-xl font-semibold mb-5">
                         You must save these codes and their numbers

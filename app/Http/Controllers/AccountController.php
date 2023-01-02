@@ -17,7 +17,7 @@ class AccountController extends Controller
         return view('account', ['account' => $account[0]]);
     }
 
-    public function execute(Request $request): RedirectResponse
+    public function depositOrWithdraw(Request $request): RedirectResponse
     {
         $request->validate([
             'amount' => 'required',

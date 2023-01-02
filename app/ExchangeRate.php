@@ -38,6 +38,7 @@ class ExchangeRate
         curl_close($ch);
 
         $exchangeRates = json_decode($json, true);
+        unset($exchangeRates['rates']["BTC"]);
 
         return array_keys($exchangeRates['rates']);
     }

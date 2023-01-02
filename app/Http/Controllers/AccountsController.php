@@ -13,6 +13,7 @@ class AccountsController extends Controller
     {
         $accounts = json_decode(Account::whereOwnerId(Auth::user()->getAuthIdentifier())->get(), true);
         $currencies= (new ExchangeRate())->getCurrencies();
-        return view('accounts', ['accounts' => $accounts, 'currencies' => $currencies]);
+        return view('accounts', ['accounts' => $accounts, 'currencies' => $currencies, 'validation' => false]);
     }
+
 }
