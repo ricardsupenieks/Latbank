@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Routing\Redirector;
-use Illuminate\View\View;
+use App\GenerateAccountNumber;
+use App\Models\Account;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class CreateAccountController extends Controller
 {
-    public function showForm(): View
+    public function execute(Request $request): RedirectResponse
     {
-
-        return view('accountCreate');
-    }
-
-    public function execute(): Redirector
-    {
-
+        Account::create([
+            'owner_id' => Auth()->user()->getAuthIdentifier(),
+            'account_number' => (new GenerateAccountNumber)->generateAccountNumber(),
+            'currency' => $request->input('currency'),
+            'balance' => 0.00
+        ]);
         return \redirect('accounts');
     }
 }
