@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AccountsController;
 use App\Http\Controllers\CreateAccountController;
+use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
@@ -24,6 +25,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [LandingController::class, 'index']);
 
 Route::get('/accounts', [AccountsController::class, 'showForm']);
+
+Route::get('/exchange', [CurrencyController::class, 'index']);
 
 Route::get('/account/create', [CreateAccountController::class, 'showForm']);
 Route::post('/account/create', [CreateAccountController::class, 'create']);

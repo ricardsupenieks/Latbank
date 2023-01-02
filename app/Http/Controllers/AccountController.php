@@ -31,6 +31,7 @@ class AccountController extends Controller
             Account::whereId($id)->update(['balance' => $balance + (float)$request->get('amount')]);
 
             Transaction::create([
+                'receiver' => null,
                 'owner_id' => Auth()->user()->getAuthIdentifier(),
                 'currency' => json_decode(Account::whereId($id)->get('currency'))[0]->currency,
                 'transaction' => 'deposit',

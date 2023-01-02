@@ -24,7 +24,7 @@ class LandingController extends Controller
 
                 Account::create([
                    'owner_id' => Auth()->user()->getAuthIdentifier(),
-                    'account_number' => (new generateAccountNumber)->generateAccountNumber(),
+                    'account_number' => (new GenerateAccountNumber)->generateAccountNumber(),
                     'currency' => 'EUR',
                     'balance' => 0.00
                 ]);
@@ -32,7 +32,7 @@ class LandingController extends Controller
                 for($i=0;$i<10;$i++) {
                     Code::create([
                         'owner_id' => Auth()->user()->getAuthIdentifier(),
-                        'code' => (new generateCode)->generateCode(),
+                        'code' => (new GenerateCode)->generateCode(),
                     ]);
                 }
 
