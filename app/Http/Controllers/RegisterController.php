@@ -18,8 +18,8 @@ class RegisterController extends Controller
     public function execute(Request $request)
     {
         $request->validate([
-           'name' => 'required',
-           'surname' => 'required',
+           'name' => ['required', 'alpha'],
+           'surname' => ['required', 'alpha'],
            'email' => ['required','email', 'unique:users,email'],
            'password' => ['required'],
            'confirm_password' => ['required', 'same:password'],
@@ -28,10 +28,11 @@ class RegisterController extends Controller
         User::create([
             'name' => ucfirst(strtolower($request->input('name'))),
             'surname' => ucfirst(strtolower($request->input('surname'))),
+            'full_name' => strtoupper($request->input('name') . ' ' . $request->input('surname')),
             'email' => strtolower($request->input('email')),
             'password' => bcrypt($request->input('password')),
         ]);
-        
+
         return \redirect('/login');
     }
 }

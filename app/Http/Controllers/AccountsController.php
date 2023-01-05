@@ -12,8 +12,9 @@ class AccountsController extends Controller
     public function showForm(): View
     {
         $accounts = json_decode(Account::whereOwnerId(Auth::user()->getAuthIdentifier())->get(), true);
-        $currencies= (new ExchangeRate())->getCurrencies();
-        return view('accounts', ['accounts' => $accounts, 'currencies' => $currencies, 'validation' => false]);
+//        $currencies = (new ExchangeRate())->getCurrencies();
+        $currencies = ['EUR', 'RUB', 'USD'];
+        return view('accounts', ['accounts' => $accounts, 'currencies' => $currencies]);
     }
 
 }

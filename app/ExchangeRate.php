@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Models\Account;
+
 class ExchangeRate
 {
     /**
@@ -10,13 +12,15 @@ class ExchangeRate
     private string $access_key;
     private string $endpoint;
 
+    private static array $currencies = [];
+
     public function __construct()
     {
         $this->endpoint = 'latest';
         $this->access_key = env('EXCHANGE_RATES_API_KEY');
     }
 
-    public function exchangeTo($currencySymbol): float
+    public function exchangeRateFor($currencySymbol): float
     {
         $ch = curl_init('http://api.exchangeratesapi.io/v1/'.$this->endpoint.'?access_key='.$this->access_key);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -31,15 +35,20 @@ class ExchangeRate
 
     public function getCurrencies(): array
     {
-        $ch = curl_init('http://api.exchangeratesapi.io/v1/'.$this->endpoint.'?access_key='.$this->access_key);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        if(empty(self::$currencies)) {
+            $ch = curl_init('http://api.exchangeratesapi.io/v1/' . $this->endpoint . '?access_key=' . $this->access_key);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-        $json = curl_exec($ch);
-        curl_close($ch);
+            $json = curl_exec($ch);
+            curl_close($ch);
 
-        $exchangeRates = json_decode($json, true);
-        unset($exchangeRates['rates']["BTC"]);
+            $exchangeRates = json_decode($json, true);
+            unset($exchangeRates['rates']["BTC"]);
 
-        return array_keys($exchangeRates['rates']);
+            foreach (array_keys($exchangeRates['rates']) as $exchangeRate) {
+                self::$currencies[]=$exchangeRate;
+            }
+        }
+        return self::$currencies;
     }
 }

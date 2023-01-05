@@ -40,7 +40,7 @@ class LandingController extends Controller
                 $firstTimeLogin = false;
             }
 
-            $codes = json_decode(Code::whereOwnerId(Auth::user()->getAuthIdentifier())->get(), true);
+            $codes = Code::whereOwnerId(Auth::user()->getAuthIdentifier())->get();
 
             return view('home', ['firstTimeLogin' => $firstTimeLogin, 'codes' => $codes]);
         }
