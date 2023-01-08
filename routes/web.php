@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AccountsController;
 use App\Http\Controllers\CreateAccountController;
 use App\Http\Controllers\CryptoMarketController;
+use App\Http\Controllers\CryptoSearchController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LoginController;
@@ -36,7 +37,10 @@ Route::post('/account/deposit', [AccountController::class, 'depositOrWithdraw'])
 Route::post('/account/close', [AccountController::class, 'close'])->middleware(Authenticate::class);
 
 Route::get('/crypto', [CryptoMarketController::class, 'showMainPage']);
-Route::get('/crypto/portfolio', [CryptoMarketController::class, 'showMainPage']);
+Route::get('/crypto/{crypto}', [CryptoMarketController::class, 'showCrypto']);
+
+//Route::get('/crypto/portfolio', [CryptoMarketController::class, 'showMainPage']);
+//Route::get('/crypto/search', [CryptoSearchController::class, 'showResult']);
 
 
 Route::get('/transactions', [TransactionController::class, 'showForm'])->middleware(Authenticate::class);

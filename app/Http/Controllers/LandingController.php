@@ -6,9 +6,7 @@ use App\generateAccountNumber;
 use App\generateCode;
 use App\Models\Account;
 use App\Models\Code;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 
 class LandingController extends Controller

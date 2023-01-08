@@ -2,39 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\Crypto\CoinMarketCapApiRepository;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class CryptoMarketController extends Controller
 {
-    public function showMainPage()
+    public function showMainPage(): View
     {
-        $url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest';
-        $parameters = [
-            'start' => '1',
-            'limit' => '10',
-            'convert' => 'USD'
-        ];
-
-        $headers = [
-            'Accepts: application/json',
-            'X-CMC_PRO_API_KEY: ' . env('COIN_MARKET_CAP_API_KEY')
-        ];
-        $qs = http_build_query($parameters); // query string encode the parameters
-        $request = "{$url}?{$qs}"; // create the request URL
-
-        $curl = curl_init(); // Get cURL resource
-        // Set cURL options
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $request,            // set the request URL
-            CURLOPT_HTTPHEADER => $headers,     // set the headers
-            CURLOPT_RETURNTRANSFER => 1         // ask for raw response instead of bool
-        ));
-
-        $response = curl_exec($curl); // Send the request, save the response
-        $topCryptos = json_decode(($response), true)['data']; // print json decoded response
-        curl_close($curl); // Close request
+        $topCryptos = (new CoinMarketCapApiRepository())->getTopCryptos();
 
         return view('market', ['topCryptos' => $topCryptos]);
+    }
+
+    public function showCrypto(Request $request)
+    {
+        var_dump($request->get('crypto'));
     }
 }
