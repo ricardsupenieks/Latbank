@@ -4,5 +4,5 @@ namespace App\Repositories\Crypto;
 
 interface CryptoRepository
 {
-    public function getTopCryptos(): array;
+    public function getCrypto($url, $parameters): array;
 }

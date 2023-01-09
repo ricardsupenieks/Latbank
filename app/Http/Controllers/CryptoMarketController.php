@@ -2,21 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\Crypto\CoinMarketCapApiRepository;
-use Illuminate\Http\Request;
+use App\Services\CryptoService;
 use Illuminate\View\View;
 
 class CryptoMarketController extends Controller
 {
+    private CryptoService $cryptoService;
+    public function __construct()
+    {
+        $this->cryptoService = new CryptoService();
+    }
+
     public function showMainPage(): View
     {
-        $topCryptos = (new CoinMarketCapApiRepository())->getTopCryptos();
+        $topCryptos = $this->cryptoService->getTopCryptos();
 
         return view('market', ['topCryptos' => $topCryptos]);
     }
 
-    public function showCrypto(Request $request)
+    public function showCrypto($cryptoId): View
     {
-        var_dump($request->get('crypto'));
+        $crypto = $this->cryptoService->getCryptoById($cryptoId);
+
+        return view('crypto', ['crypto' => $crypto]);
+    }
+
+    public function buyCrypto($cryptoId): View
+    {
+        $crypto = $this->cryptoService->getCryptoById($cryptoId);
+
+        return view('crypto', ['crypto' => $crypto]);
+    }
+
+    public function sellCrypto($cryptoId): View
+    {
+        $crypto = $this->cryptoService->getCryptoById($cryptoId);
+
+        return view('crypto', ['crypto' => $crypto]);
     }
 }

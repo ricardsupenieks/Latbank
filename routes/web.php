@@ -37,11 +37,12 @@ Route::post('/account/deposit', [AccountController::class, 'depositOrWithdraw'])
 Route::post('/account/close', [AccountController::class, 'close'])->middleware(Authenticate::class);
 
 Route::get('/crypto', [CryptoMarketController::class, 'showMainPage']);
-Route::get('/crypto/{crypto}', [CryptoMarketController::class, 'showCrypto']);
+Route::get('/crypto/search', [CryptoSearchController::class, 'showCrypto']);
+Route::get('/crypto/{cryptoId}', [CryptoMarketController::class, 'showCrypto']);
+Route::post('/crypto/{cryptoId}/buy', [CryptoMarketController::class, 'buyCrypto']);
+Route::post('/crypto/{cryptoId}/sell', [CryptoMarketController::class, 'sellCrypto']);
 
 //Route::get('/crypto/portfolio', [CryptoMarketController::class, 'showMainPage']);
-//Route::get('/crypto/search', [CryptoSearchController::class, 'showResult']);
-
 
 Route::get('/transactions', [TransactionController::class, 'showForm'])->middleware(Authenticate::class);
 

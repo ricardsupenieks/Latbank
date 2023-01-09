@@ -61,7 +61,7 @@
                         {{array_search($crypto, $topCryptos) + 1}}
                     </td>
                     <th scope="row" class="px-6 py-4 font-medium text-black whitespace-nowrap dark:text-white text-start">
-                        <a href="/crypto/{{$crypto['symbol']}}">
+                        <a href="/crypto/{{$crypto['id']}}">
                             <img class="object-scale-down h-7 w-7 inline" src="https://s2.coinmarketcap.com/static/img/coins/200x200/{{$crypto['id']}}.png" alt="Not found" onerror=this.src="https://s2.coinmarketcap.com/static/img/coins/64x64/{{$crypto['id']}}.png">
                             {{$crypto['name']}} <span class="text-gray-500">{{$crypto['symbol']}} </span>
                         </a>

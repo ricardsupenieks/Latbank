@@ -2,12 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\CryptoService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class CryptoSearchController extends Controller
 {
-    public function showResult(Request $request)
+    private CryptoService $cryptoService;
+    public function __construct()
     {
-        var_dump($request->get('search'));
+        $this->cryptoService = new CryptoService();
+    }
+
+    public function showCrypto(Request $request): RedirectResponse
+    {
+        $search = $request->get('search');
+
+        $searchBySlug = $this->cryptoService->getCryptoBySlug($search);
+
+        if($searchBySlug == 0) {
+            $searchBySymbol = $this->cryptoService->getCryptoBySymbol($search) == 0;
+
+            if(!$searchBySymbol) {
+                return redirect('/crypto');
+            }
+            return redirect('/crypto/' . $searchBySymbol);
+        }
+        return redirect('/crypto/' . $searchBySlug);
     }
 }
