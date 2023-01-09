@@ -12,11 +12,13 @@ class Transaction extends Model
     protected $table = 'transactions';
 
     protected $fillable = [
+        'transferee',
+        'transferor',
+        'account_to',
+        'account_from',
         'owner_id',
-        'receiver',
-        'account',
         'currency',
-        'transaction',
         'amount',
+        'transaction',
     ];
 }

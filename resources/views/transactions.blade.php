@@ -20,21 +20,21 @@
         <table id="example" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
             <thead>
             <tr>
-                <th data-priority="1">Receiver</th>
-                <th data-priority="2">Action</th>
-                <th data-priority="3">Amount</th>
-                <th data-priority="4">Currency</th>
-                <th data-priority="5">Date</th>
-                <th data-priority="5">Time</th>
+                <th data-priority="1">Transferee</th>
+                <th data-priority="2">Transferor</th>
+                <th data-priority="3">Action</th>
+                <th data-priority="4">Amount</th>
+                <th data-priority="6">Date</th>
+                <th data-priority="7">Time</th>
             </tr>
             </thead>
             <tbody>
             @foreach($transactions as $transaction)
             <tr>
-                <td>{{$transaction['receiver']}}</td>
+                <td>{{$transaction['transferee']}} {{$transaction['account_to']}}</td>
+                <td>{{$transaction['transferor']}} {{$transaction['account_from']}}</td>
                 <td>{{ucfirst($transaction['transaction'])}}</td>
-                <td>{{number_format($transaction['amount'],2)}}</td>
-                <td>{{$transaction['currency']}}</td>
+                <td>{{number_format($transaction['amount'],2)}} {{$transaction['currency']}}</td>
                 <td>{{strtok($transaction['created_at'], ' ')}}</td>
                 <td>{{substr($transaction['created_at'], strpos($transaction['created_at'], " ") + 1)}}</td>
             </tr>

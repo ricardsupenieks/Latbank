@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Account;
 use App\Services\CryptoService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class CryptoMarketController extends Controller
@@ -24,7 +26,9 @@ class CryptoMarketController extends Controller
     {
         $crypto = $this->cryptoService->getCryptoById($cryptoId);
 
-        return view('crypto', ['crypto' => $crypto]);
+        $accounts = Account::whereOwnerId(Auth::user()->getAuthIdentifier())->get();
+
+        return view('crypto', ['crypto' => $crypto, 'accounts' => $accounts]);
     }
 
     public function buyCrypto($cryptoId): View
@@ -37,6 +41,7 @@ class CryptoMarketController extends Controller
     public function sellCrypto($cryptoId): View
     {
         $crypto = $this->cryptoService->getCryptoById($cryptoId);
+
 
         return view('crypto', ['crypto' => $crypto]);
     }

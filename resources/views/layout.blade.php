@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Latbank</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
     <!--Regular Datatables CSS-->
     <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
     <!--Responsive Extension Datatables CSS-->
     <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet">
-
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
         /*Overrides for Tailwind CSS */
@@ -102,9 +103,33 @@
             background-color: #667eea !important;
             /*bg-indigo-500*/
         }
+
+        [x-cloak] {
+            display: none;
+        }
+
+        .duration-300 {
+            transition-duration: 300ms;
+        }
+
+        .ease-in {
+            transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+        }
+
+        .ease-out {
+            transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+        }
+
+        .scale-90 {
+            transform: scale(.9);
+        }
+
+        .scale-100 {
+            transform: scale(1);
+        }
     </style>
 </head>
-<body class="bg-red-800">
+<body class="bg-red-800" x-data="{ 'showModal': false }" @keydown.escape="showModal = false" x-cloak>
 <header>
     <nav class="navbar navbar-default navbar-static-top bg-white px-2 sm:px-4 py-2.5 dark:bg-gray-900 w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
         <div class="container flex flex-wrap items-center justify-between mx-auto">
