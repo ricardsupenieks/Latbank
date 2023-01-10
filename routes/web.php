@@ -2,13 +2,12 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AccountsController;
-use App\Http\Controllers\CreateAccountController;
 use App\Http\Controllers\CryptoMarketController;
 use App\Http\Controllers\CryptoSearchController;
-use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransferController;
@@ -31,18 +30,18 @@ Route::get('/accounts', [AccountsController::class, 'showForm'])->middleware(Aut
 
 //Route::get('/exchange', [CurrencyController::class, 'index'])->middleware(Authenticate::class);
 
-Route::post('/account/create', [CreateAccountController::class, 'execute'])->middleware(Authenticate::class);
+Route::post('/account/create', [AccountsController::class, 'execute'])->middleware(Authenticate::class);
 Route::get('/account/{account_number}', [AccountController::class, 'showForm'])->middleware(Authenticate::class);
 Route::post('/account/deposit', [AccountController::class, 'depositOrWithdraw'])->middleware(Authenticate::class);
 Route::post('/account/close', [AccountController::class, 'close'])->middleware(Authenticate::class);
 
 Route::get('/crypto', [CryptoMarketController::class, 'showMainPage']);
 Route::get('/crypto/search', [CryptoSearchController::class, 'showCrypto']);
+Route::get('/crypto/{cryptoId}/buy', [CryptoMarketController::class, 'buyCrypto'])->middleware(Authenticate::class);
+//Route::get('/crypto/{cryptoId}/sell', [CryptoMarketController::class, 'sellCrypto']);
 Route::get('/crypto/{cryptoId}', [CryptoMarketController::class, 'showCrypto']);
-Route::post('/crypto/{cryptoId}/buy', [CryptoMarketController::class, 'buyCrypto']);
-Route::post('/crypto/{cryptoId}/sell', [CryptoMarketController::class, 'sellCrypto']);
 
-//Route::get('/crypto/portfolio', [CryptoMarketController::class, 'showMainPage']);
+Route::get('/crypto/portfolio/{account_id}', [PortfolioController::class, 'showForm'])->middleware(Authenticate::class);
 
 Route::get('/transactions', [TransactionController::class, 'showForm'])->middleware(Authenticate::class);
 

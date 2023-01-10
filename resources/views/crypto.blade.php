@@ -29,53 +29,67 @@
 {{--            </div>--}}
 {{--        </div>--}}
     </div>
-    <div class="flex flex-row mx-[200px]">
+    <div class="flex flex-row mx-[200px] gap-3">
         <div class="flex min-w-7xl mt-10 text-6xl font-semibold bg-white rounded py-5 px-5">
-            ${{number_format($crypto['quote']['USD']['price'], 2)}} {{--{{number_format($crypto['quote']['USD']['percent_change_24h'])}}%--}}
+            €{{number_format($crypto['quote']['EUR']['price'], 2)}} {{--{{number_format($crypto['quote']['USD']['percent_change_24h'])}}%--}}
         </div>
 
-        <div>
-            <button type="button" class="bg-white border hover:text-indigo-500 font-bold py-2 px-4" @click="showModal = true">BUY</button>
+        <div class="mt-10 bg-white rounded p-1">
+            <div class="flex flex-row">
+                <button type="button" name="buy_button" id="buy_button" class="bg-white font-bold py-2 px-4">BUY</button>
+{{--                <button type="button" name="sell_button" id="sell_button" class="bg-white border hover:text-indigo-500 font-bold py-2 px-4">SELL</button>--}}
+            </div>
 
-            <!--Overlay-->
-            <div class="overflow-auto" style="background-color: rgba(0,0,0,0.5)" x-show="showModal" :class="{ 'absolute inset-0 z-10 flex items-center justify-center': showModal }">
-                <!--Dialog-->
-                <div class="bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg py-4 text-left px-6" x-show="showModal" @click.away="showModal = false">
+            <div id="buy_appear rounded">
+                <form action="/crypto/{{$crypto['id']}}/buy" method="get">
+                    @csrf
+                    <label for="account" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Transfer from</label>
+                    <select name="account" id="account" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="" disabled selected>Choose an account</option>
+                        @foreach ($accounts as $account)
+                            <option value="{{$account['account_number']}}">Account: {{$account['account_number']}} | {{number_format($account['balance'],2)}} {{$account['currency']}}</option>
+                        @endforeach
+                    </select>
 
-                    <!--Title-->
-                    <div class="flex justify-between items-center pb-3">
-                        <p class="text-2xl font-bold">Simple Modal!</p>
-                        <div class="cursor-pointer z-50" @click="showModal = false">
-                            <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-                                <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
-                            </svg>
-                        </div>
-                    </div>
-
-                    <form>
-                        @csrf
-                        <label for="account" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select account:</label>
-                        <select name="account" id="account" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option value="" disabled selected>Choose an account</option>
-                            @foreach ($accounts as $account)
-                                <option value="{{$account['account_number']}}">Account: {{$account['account_number']}} | {{number_format($account['balance'],2)}} {{$account['currency']}}</option>
+                    <label for="amount" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount</label>
+                    <input type="number" name="amount" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <button type="submit" class="text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Buy</button>
+                </form>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li class="text-red-600 font-small">*{{ $error }}</li>
                             @endforeach
-                        </select>
-                        <input>
-                    </form>
-
-                    <!--Footer-->
-                    <div class="flex justify-end pt-2">
-                        <button class="px-4 bg-transparent p-3 rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2" @click="alert('Additional Action');">Action</button>
-                        <button class="modal-close px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400" @click="showModal = false">Close</button>
+                        </ul>
                     </div>
+                @endif
+            </div>
 
-
-                </div>
-                <!--/Dialog -->
-            </div><!-- /Overlay -->
+{{--            <div id="sell_appear" class="hidden block mb-2 text-sm font-medium text-gray-900 dark:text-white">--}}
+{{--                <label for="amount" class="block">Amount</label>--}}
+{{--                <input type="number" name="amount" id="name">--}}
+{{--            </div>--}}
         </div>
     </div>
+
+{{--    <script type="text/javascript">--}}
+{{--        $("#buy_button").click(--}}
+{{--            function()--}}
+{{--            {--}}
+{{--                $("#sell_appear").hide();--}}
+{{--                $("#buy_appear").show();--}}
+{{--            }--}}
+{{--        );--}}
+
+{{--        $("#sell_button").click(--}}
+{{--            function()--}}
+{{--            {--}}
+{{--                $("#buy_appear").hide();--}}
+{{--                $("#sell_appear").show();--}}
+{{--            }--}}
+{{--        );--}}
+{{--    </script>--}}
 {{--    <div class="flex flex-row space-x-2">--}}
 {{--        <form class="space-y-4 md:space-y-6 " action="/crypto/{{$crypto['id']}}/buy" method="post">--}}
 {{--            @csrf--}}

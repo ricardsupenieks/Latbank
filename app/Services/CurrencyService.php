@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Account;
 use App\Repositories\Currency\ExchangeRatesApiRepository;
 use Illuminate\Support\Facades\Cache;
 

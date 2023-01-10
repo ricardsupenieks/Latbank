@@ -11,7 +11,7 @@ class CryptoService
         $parameters = [
             'start' => '1',
             'limit' => '75',
-            'convert' => 'USD'
+            'convert' => 'EUR'
         ];
 
         return (new CoinMarketCapApiRepository())->getCrypto($url, $parameters)['data'];
@@ -20,17 +20,23 @@ class CryptoService
     public function getCryptoById($cryptoId): array {
         $url = 'https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest';
         $parameters = [
-            'convert' => 'USD',
+            'convert' => 'EUR',
             'id' => $cryptoId
         ];
 
-        return (new CoinMarketCapApiRepository())->getCrypto($url, $parameters)['data'][$cryptoId];
+        $response = (new CoinMarketCapApiRepository())->getCrypto($url, $parameters);
+
+        if(!isset($response['data'][$cryptoId])) {
+            return [];
+        }
+
+        return $response['data'][$cryptoId];
     }
 
     public function getCryptoBySlug($cryptoSlug): int {
         $url = 'https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest';
         $parameters = [
-            'convert' => 'USD',
+            'convert' => 'EUR',
             'slug' => strtolower($cryptoSlug)
         ];
 
@@ -47,7 +53,7 @@ class CryptoService
         $cryptoSymbol = strtoupper($cryptoSymbol);
         $url = 'https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest';
         $parameters = [
-            'convert' => 'USD',
+            'convert' => 'EUR',
             'symbol' => $cryptoSymbol
         ];
 

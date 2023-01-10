@@ -10,8 +10,13 @@
     <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
     <!--Responsive Extension Datatables CSS-->
     <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet">
+
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
 
     <style>
         /*Overrides for Tailwind CSS */
@@ -59,7 +64,7 @@
 
         /*Pagination Buttons - Current selected */
         .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-            color: #fff !important;
+            color: rgba(5, 5, 5, 0.96) !important;
             /*text-white*/
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
             /*shadow*/
@@ -67,7 +72,7 @@
             /*font-bold*/
             border-radius: .25rem;
             /*rounded*/
-            background: #667eea !important;
+            background: #dbeafe !important;
             /*bg-indigo-500*/
             border: 1px solid transparent;
             /*border border-transparent*/
@@ -75,7 +80,7 @@
 
         /*Pagination Buttons - Hover */
         .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-            color: #fff !important;
+            color: #dbeafe !important;
             /*text-white*/
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
             /*shadow*/
@@ -83,7 +88,7 @@
             /*font-bold*/
             border-radius: .25rem;
             /*rounded*/
-            background: #667eea !important;
+            background: #dbeafe !important;
             /*bg-indigo-500*/
             border: 1px solid transparent;
             /*border border-transparent*/
@@ -165,6 +170,7 @@
                         <li>
                             <a href="/transfer" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-red-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Transfer</a>
                         </li>
+
                         <li>
                             <a href="/transactions" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-red-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Transactions</a>
                         </li>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CryptoTransaction;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -12,6 +13,8 @@ class TransactionController extends Controller
     {
         $transactions = Transaction::whereOwnerId(Auth::user()->getAuthIdentifier())->get();
 
-        return \view('transactions', ['transactions' => $transactions]);
+        $cryptoTransactions = CryptoTransaction::whereOwnerId(Auth::user()->getAuthIdentifier())->get();
+
+        return \view('transactions', ['transactions' => $transactions, 'cryptoTransactions' => $cryptoTransactions]);
     }
 }

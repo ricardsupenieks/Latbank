@@ -40,11 +40,7 @@
                             <div class="alert alert-danger">
                                 <ul>
                                     @foreach ($errors->all() as $error)
-                                        @if($error == 'The code input and correct code must match.')
-                                            <li class="text-red-600 font-small">*Incorrect code</li>
-                                        @else
-                                            <li class="text-red-600 font-small">*{{ $error }}</li>
-                                        @endif
+                                        <li class="text-red-600 font-small">*{{ $error }}</li>
                                     @endforeach
                                 </ul>
                             </div>

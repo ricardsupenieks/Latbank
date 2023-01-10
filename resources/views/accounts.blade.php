@@ -12,11 +12,13 @@
                     <a href="/account/{{$account['account_number']}}">
                         <div class="py-4 px-6">
                             <div class="text-gray-700 text-base">
-                                Account {{ $account['account_number'] }}
+                                Account {{$account['account_number']}}
                             </div>
-                            <div class="font-bold text-2xl mb-1 mt-1">{{$account['currency']}}</div>
+                            <div class="font-bold text-2xl mb-1 mt-1">
+                                {{$account['currency']}}
+                            </div>
                             <p class="font-bold text-2xl mb-1">
-                                {{number_format($account['balance'],2)}}
+                                {{number_format($account['balance'], 2)}}
                             </p>
                         </div>
                     </a>
@@ -35,7 +37,7 @@
                     </select>
                     <br>
                     <input class="bg-red-600 mt-2 shadow-lg shadow-shadow-red-600 text-white cursor-pointer px-3 text-center justify-center items-center py-1 pb-1 rounded-xl space-x-2"
-                           type="submit" name="withdraw" id="deposit" value="Create">
+                           type="submit" name="create" id="create" value="Create">
                 </form>
             </div>
         </div>

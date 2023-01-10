@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\GenerateAccountNumber;
 use App\Models\Account;
+use App\Models\CryptoCurrency;
 use App\Models\Transaction;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -20,7 +22,21 @@ class AccountController extends Controller
             abort('403');
         }
 
-        return view('account', ['account' => $account]);
+        $accountId = $account->id;
+        $cryptos = json_decode(CryptoCurrency::whereAccountId($accountId)->get(), true);
+
+        return view('account', ['account' => $account, 'cryptos' => $cryptos]);
+    }
+
+    public function createAccount(Request $request): RedirectResponse
+    {
+        Account::create([
+            'owner_id' => Auth()->user()->getAuthIdentifier(),
+            'account_number' => (new GenerateAccountNumber)->generateAccountNumber(),
+            'currency' => $request->input('currency'),
+            'balance' => 0.00
+        ]);
+        return \redirect('accounts');
     }
 
     public function depositOrWithdraw(Request $request): RedirectResponse

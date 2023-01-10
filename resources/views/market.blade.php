@@ -18,7 +18,6 @@
             @csrf
             <input type="text" name="search" id="search" placeholder="Search" class="rounded font-medium">
         </form>
-
     </div>
 
     <div class="flex justify-center relative">
@@ -67,40 +66,40 @@
                         </a>
                     </th>
                     <td class="px-6 py-4 text-end">
-                        ${{number_format($crypto['quote']['USD']['price'], 2)}}
+                        €{{number_format($crypto['quote']['EUR']['price'], 2)}}
                     </td>
                     <td class="px-6 py-4 text-end">
-                        ${{number_format($crypto['quote']['USD']['volume_24h'])}}
+                        €{{number_format($crypto['quote']['EUR']['volume_24h'])}}
                     </td>
-                    @if($crypto['quote']['USD']['percent_change_1h'] > 0.00)
+                    @if($crypto['quote']['EUR']['percent_change_1h'] > 0.00)
                         <td class="px-6 py-4 text-end text-green-600">
-                            {{number_format($crypto['quote']['USD']['percent_change_1h'], 2)}}%
+                            {{number_format($crypto['quote']['EUR']['percent_change_1h'], 2)}}%
                         </td>
                     @else
                         <td class="px-6 py-4 text-end text-red-600">
-                            {{number_format($crypto['quote']['USD']['percent_change_1h'], 2)}}%
+                            {{number_format($crypto['quote']['EUR']['percent_change_1h'], 2)}}%
                         </td>
                     @endif
-                    @if($crypto['quote']['USD']['percent_change_24h'] > 0)
+                    @if($crypto['quote']['EUR']['percent_change_24h'] > 0)
                         <td class="px-6 py-4 text-end text-green-600">
-                            {{number_format($crypto['quote']['USD']['percent_change_24h'])}}%
+                            {{number_format($crypto['quote']['EUR']['percent_change_24h'])}}%
                         </td>
                     @else
                         <td class="px-6 py-4 text-end text-red-600">
-                            {{number_format($crypto['quote']['USD']['percent_change_24h'], 2)}}%
+                            {{number_format($crypto['quote']['EUR']['percent_change_24h'], 2)}}%
                         </td>
                     @endif
-                    @if($crypto['quote']['USD']['percent_change_7d'] > 0)
+                    @if($crypto['quote']['EUR']['percent_change_7d'] > 0)
                         <td class="px-6 py-4 text-end text-green-600">
-                            {{number_format($crypto['quote']['USD']['percent_change_7d'], 2)}}%
+                            {{number_format($crypto['quote']['EUR']['percent_change_7d'], 2)}}%
                         </td>
                     @else
                         <td class="px-6 py-4 text-end text-red-600">
-                            {{number_format($crypto['quote']['USD']['percent_change_7d'], 2)}}%
+                            {{number_format($crypto['quote']['EUR']['percent_change_7d'], 2)}}%
                         </td>
                     @endif
                     <td class="px-6 py-4 text-end">
-                       ${{number_format($crypto['quote']['USD']['market_cap'])}}
+                        €{{number_format($crypto['quote']['EUR']['market_cap'])}}
                     </td>
                     <td class="px-6 py-4 text-end">
                         {{number_format($crypto['circulating_supply'])}} {{$crypto['symbol']}}
