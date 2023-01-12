@@ -30,7 +30,9 @@ Route::get('/accounts', [AccountsController::class, 'showForm'])->middleware(Aut
 
 Route::post('/account/create', [AccountsController::class, 'createAccount'])->middleware(Authenticate::class);
 Route::get('/account/{account_number}', [AccountController::class, 'showForm'])->middleware(Authenticate::class);
-Route::post('/account/{account_number}/transaction', [AccountController::class, 'transaction'])->middleware(Authenticate::class);
+Route::post('/account/{account_number}/deposit', [AccountController::class, 'deposit'])->middleware(Authenticate::class);
+Route::post('/account/{account_number}/withdraw', [AccountController::class, 'withdraw'])->middleware(Authenticate::class);
+
 Route::delete('/account/close', [AccountController::class, 'close'])->middleware(Authenticate::class);
 
 Route::get('/crypto', [CryptoMarketController::class, 'showMainPage']);
