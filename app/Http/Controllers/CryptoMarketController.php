@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use App\Models\Code;
 use App\Models\CryptoCurrency;
 use App\Models\CryptoTransaction;
 use App\Models\Transaction;
@@ -27,7 +28,9 @@ class CryptoMarketController extends Controller
     {
         $topCryptos = $this->cryptoService->getTopCryptos();
 
-        return view('market', ['topCryptos' => $topCryptos]);
+        $accounts = json_decode(Account::whereOwnerId(Auth()->user()->getAuthIdentifier())->get(), true);
+
+        return view('market', ['topCryptos' => $topCryptos, 'accounts' => $accounts]);
     }
 
     public function showCrypto($cryptoId): View
@@ -40,7 +43,10 @@ class CryptoMarketController extends Controller
 
         $accounts = Account::whereOwnerId(Auth::user()->getAuthIdentifier())->get();
 
-        return view('crypto', ['crypto' => $crypto, 'accounts' => $accounts]);
+        $codes = json_decode(Code::whereOwnerId(Auth::user()->getAuthIdentifier())->get(), true);
+        $randomCodeId = array_rand($codes);
+
+        return view('crypto', ['crypto' => $crypto, 'accounts' => $accounts, 'code' => $codes[$randomCodeId]]);
     }
 
     public function buyCrypto($cryptoId, Request $request): RedirectResponse
@@ -59,7 +65,8 @@ class CryptoMarketController extends Controller
 
         $request->validate([
             'account' => ['required', 'exists:accounts,account_number'],
-            'amount' => ['required', 'numeric', 'min:' . $minimumCryptoAmount]
+            'amount' => ['required', 'numeric', 'min:' . $minimumCryptoAmount],
+            'code_input' => ['required', 'exists:codes,code'],
         ]);
 
         $account = Account::whereAccountNumber($request->get('account'))->get()->first();

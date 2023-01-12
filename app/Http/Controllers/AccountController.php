@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\GenerateAccountNumber;
 use App\Models\Account;
+use App\Models\Code;
 use App\Models\CryptoCurrency;
+use App\Models\CryptoTransaction;
 use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,52 +28,81 @@ class AccountController extends Controller
         $accountId = $account->id;
         $cryptos = json_decode(CryptoCurrency::whereAccountId($accountId)->get(), true);
 
-        return view('account', ['account' => $account, 'cryptos' => $cryptos]);
-    }
+        $transactions = [];
+        $transactionsFrom = json_decode(Transaction::whereAccountFrom($accountNumber)->get(), true);
+        $transactionsTo = json_decode(Transaction::whereAccountTo($accountNumber)->get(), true);
 
-    public function createAccount(Request $request): RedirectResponse
-    {
-        Account::create([
-            'owner_id' => Auth()->user()->getAuthIdentifier(),
-            'account_number' => (new GenerateAccountNumber)->generateAccountNumber(),
-            'currency' => $request->input('currency'),
-            'balance' => 0.00
+        foreach ($transactionsFrom as $transactionFrom) {
+            $transactions[]=$transactionFrom;
+        }
+
+        foreach ($transactionsTo as $transactionTo) {
+            $transactions[]=$transactionTo;
+        }
+
+        $cryptoTransactions = CryptoTransaction::whereAccountNumber($accountNumber)->get();
+
+        $codes = json_decode(Code::whereOwnerId(Auth::user()->getAuthIdentifier())->get(), true);
+        $randomCodeId = array_rand($codes);
+
+        return view('account', [
+            'account' => $account,
+            'cryptos' => $cryptos,
+            'transactions' => $transactions,
+            'cryptoTransactions' => $cryptoTransactions,
+            'code' => $codes[$randomCodeId],
         ]);
-        return \redirect('accounts');
     }
 
-    public function depositOrWithdraw(Request $request): RedirectResponse
+    public function transaction($accountNumber, Request $request): RedirectResponse
     {
         $request->validate([
             'amount' => 'required',
+            'code_input' => ['required', 'exists:codes,code'],
         ]);
 
-        $id = $request->get('id');
+        $accountId = $request->get('id');
+        $account = Account::whereAccountNumber($accountNumber)->get()->first();
 
-        $account = Account::whereId($id)->get()->first();
-
-        if($request->get('deposit')) {
-            Account::whereId($id)->update(['balance' => $account->balance + (float)$request->get('amount')]);
-
-            Transaction::create([
-                'owner_id' => Auth()->user()->getAuthIdentifier(),
-                'account' => $account->account_number,
-                'currency' => json_decode(Account::whereId($id)->get('currency'))[0]->currency,
-                'transaction' => 'deposit',
-                'amount' => (float)$request->get('amount')
-            ]);
-        } else {
-            Account::whereId($id)->update(['balance' => $account->balance - (float)$request->get('amount')]);
-
-            Transaction::create([
-                'owner_id' => Auth()->user()->getAuthIdentifier(),
-                'account' => $account->account_number,
-                'currency' => json_decode(Account::whereId($id)->get('currency'))[0]->currency,
-                'transaction' => 'withdraw',
-                'amount' => (float)$request->get('amount')
-            ]);
+        $userId = $account->owner_id;
+        if($userId !== Auth::id()) {
+            abort(403);
         }
 
+        $user = User::whereId($userId)->get()->first();
+
+        if($request->get('deposit')) {
+            Account::whereId($accountId)->update(['balance' => $account->balance + $request->get('amount')]);
+
+            Transaction::create([
+                'owner_id' => Auth()->user()->getAuthIdentifier(),
+                'transferee' => $user->name . ' ' . $user->surname,
+                'transferor' => $user->name . ' ' . $user->surname,
+                'account_to' => $account->account_number,
+                'account_from' => null,
+                'currency' => $account->currency,
+                'amount' => $request->get('amount'),
+                'transaction' => 'deposit',
+            ]);
+        } else {
+            Account::whereId($accountId)->update(['balance' => $account->balance - $request->get('amount')]);
+
+            Transaction::create([
+                'owner_id' => Auth()->user()->getAuthIdentifier(),
+                'transferee' => $user->name . ' ' . $user->surname,
+                'transferor' => $user->name . ' ' . $user->surname,
+                'account_to' => null,
+                'account_from' => $account->account_number,
+                'currency' => $account->currency,
+                'amount' => $request->get('amount'),
+                'transaction' => 'withdraw',
+            ]);
+        }
         return \redirect('/accounts');
+    }
+
+    public function close()
+    {
+
     }
 }

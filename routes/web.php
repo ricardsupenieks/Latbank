@@ -28,12 +28,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [LandingController::class, 'index'])->name('home');
 Route::get('/accounts', [AccountsController::class, 'showForm'])->middleware(Authenticate::class)->name('accounts');
 
-//Route::get('/exchange', [CurrencyController::class, 'index'])->middleware(Authenticate::class);
-
-Route::post('/account/create', [AccountsController::class, 'execute'])->middleware(Authenticate::class);
+Route::post('/account/create', [AccountsController::class, 'createAccount'])->middleware(Authenticate::class);
 Route::get('/account/{account_number}', [AccountController::class, 'showForm'])->middleware(Authenticate::class);
-Route::post('/account/deposit', [AccountController::class, 'depositOrWithdraw'])->middleware(Authenticate::class);
-Route::post('/account/close', [AccountController::class, 'close'])->middleware(Authenticate::class);
+Route::post('/account/{account_number}/transaction', [AccountController::class, 'transaction'])->middleware(Authenticate::class);
+Route::delete('/account/close', [AccountController::class, 'close'])->middleware(Authenticate::class);
 
 Route::get('/crypto', [CryptoMarketController::class, 'showMainPage']);
 Route::get('/crypto/search', [CryptoSearchController::class, 'showCrypto']);

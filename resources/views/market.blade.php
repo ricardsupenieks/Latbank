@@ -8,12 +8,6 @@
     </div>
 
     <div class="flex mx-[240px] mb-1.5 gap-2.5 text-sm text-black py-1 ">
-        <button class="rounded bg-white w-20 uppercase font-bold text-xs hover:bg-blue-100">
-            <a href="crypto/portfolio">
-                Portfolio
-            </a>
-        </button>
-
         <form method="get" action="/crypto/search">
             @csrf
             <input type="text" name="search" id="search" placeholder="Search" class="rounded font-medium">
