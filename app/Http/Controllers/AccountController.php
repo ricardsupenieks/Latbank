@@ -117,8 +117,14 @@ class AccountController extends Controller
         ]);
         return \redirect('/accounts');
     }
-    public function close()
+    public function close($accountNumber, Request $request)
     {
+        $request->validate([
+            'code_input' => ['required', 'exists:codes,code'],
+        ]);
 
+        Account::whereAccountNumber($accountNumber)->delete();
+
+        return \redirect('/accounts');
     }
 }

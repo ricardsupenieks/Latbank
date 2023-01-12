@@ -35,7 +35,29 @@
                             <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
                             <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         </div>
-                        <button type="button" class="text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" @click="showModal = true">Transfer</button>
+                        <div x-data="{showModal: false}">
+                            <button type="button" class="text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" @click="showModal = true">Transfer</button>
+                                <div class="overflow-auto" style="background-color: rgba(0,0,0,0.5)" x-show="showModal" :class="{ 'absolute inset-0 z-10 flex items-center justify-center': showModal }">
+                                    <div class="bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg py-4 text-left px-6" x-show="showModal" @click.away="showModal = false">
+                                        <div class="flex justify-between items-center pb-3">
+                                            <p class="text-2xl font-bold">Code confirmation</p>
+                                            <div class="cursor-pointer z-50" @click="showModal = false">
+                                                <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                                                    <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path></svg>
+                                            </div>
+                                        </div>
+                                        <form>
+                                            @csrf
+                                            <label for="account" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Code {{$code['id']}}</label>
+                                            <input type="password" name="code_input" id="code_input" placeholder="••••••" maxlength="6" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        </form>
+                                        <div class="flex justify-end pt-2 gap-2">
+                                            <button type="button" class="modal-close text-red-700 hover:text-blue-800" @click="showModal = false">Cancel</button>
+                                            <button type="submit" class="text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Transfer</button>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
@@ -45,26 +67,6 @@
                                 </ul>
                             </div>
                         @endif
-                    <div class="overflow-auto" style="background-color: rgba(0,0,0,0.5)" x-show="showModal" :class="{ 'absolute inset-0 z-10 flex items-center justify-center': showModal }">
-                        <div class="bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg py-4 text-left px-6" x-show="showModal" @click.away="showModal = false">
-                            <div class="flex justify-between items-center pb-3">
-                                <p class="text-2xl font-bold">Code confirmation</p>
-                                <div class="cursor-pointer z-50" @click="showModal = false">
-                                    <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-                                        <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path></svg>
-                                </div>
-                            </div>
-                            <form>
-                                @csrf
-                                <label for="account" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Code {{$code['id']}}</label>
-                                <input type="password" name="code_input" id="code_input" placeholder="••••••" maxlength="6" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            </form>
-                            <div class="flex justify-end pt-2 gap-2">
-                                <button type="button" class="modal-close text-red-700 hover:text-blue-800" @click="showModal = false">Cancel</button>
-                                <button type="submit" class="text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Transfer</button>
-                            </div>
-                        </div>
-                    </div>
                     </form>
                 </div>
             </div>
