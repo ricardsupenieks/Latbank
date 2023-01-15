@@ -149,15 +149,15 @@
                             </tr>
                         </thead>
                         <tbody class="text-black">
-                        @foreach($cryptos as $crypto)
                             <tr class="bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-blue-100 dark:hover:bg-gray-600">
                                 <th scope="row" class="px-6 py-4 font-medium text-black whitespace-nowrap dark:text-white text-start">
-                                    <a href="/crypto/{{$crypto['crypto_id']}}">
-                                        <img class="object-scale-down h-7 w-7 inline" src="https://s2.coinmarketcap.com/static/img/coins/200x200/{{$crypto['crypto_id']}}.png" alt="Not found" onerror=this.src="https://s2.coinmarketcap.com/static/img/coins/64x64/{{$crypto['id']}}.png">
-                                    </a>
+                                    @foreach($cryptos as $crypto)
+                                        <a href="/crypto/{{$crypto['crypto_id']}}">
+                                            <img class="object-scale-down h-7 w-7 inline" src="https://s2.coinmarketcap.com/static/img/coins/200x200/{{$crypto['crypto_id']}}.png" alt="Not found" onerror=this.src="https://s2.coinmarketcap.com/static/img/coins/64x64/{{$crypto['id']}}.png">
+                                        </a>
+                                    @endforeach
                                 </th>
                             </tr>
-                        @endforeach
                         </tbody>
                     </table>
                 </a>
@@ -221,8 +221,8 @@
                             <td>{{$cryptoTransaction['crypto']}}</td>
                             <td>{{ucfirst($cryptoTransaction['transaction'])}}</td>
                             <td>{{number_format($cryptoTransaction['amount'])}}</td>
-                            <td>{{strtok($transaction['created_at'], 'T')}}</td>
-                            <td>{{strtok(substr($transaction['created_at'], strpos($transaction['created_at'], "T") + 1), '.')}}</td>
+                            <td>{{strtok($cryptoTransaction['created_at'], ' ')}}</td>
+                            <td>{{strtok(substr($cryptoTransaction['created_at'], strpos($cryptoTransaction['created_at'], " ") + 1), '.')}}</td>
                         </tr>
                     @endforeach
                     </tbody>
