@@ -33,6 +33,6 @@ class RegisterController extends Controller
             'password' => bcrypt($request->input('password')),
         ]);
 
-        return \redirect('/login');
+        return \redirect('/login')->with('success', 'Your account has been created.');
     }
 }

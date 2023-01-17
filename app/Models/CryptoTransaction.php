@@ -14,5 +14,6 @@ class CryptoTransaction extends Model
         'crypto',
         'transaction',
         'amount',
+        'price',
     ];
 }

@@ -29,6 +29,7 @@ class TransferController extends Controller
         $transferor = User::whereId(Auth()->user()->getAuthIdentifier())->get()->first();
 
         $amount = $request->get('transfer_amount');
+        $amountInCents = $amount * 100;
 
         $toAccount =  Account::whereAccountNumber($request->get('transfer_to'))->get()->first();
         $fromAccount = Account::whereAccountNumber($request->get('transfer_from'))->get()->first();
@@ -37,7 +38,7 @@ class TransferController extends Controller
             abort(403);
         }
 
-        $fromAccount->update(['balance' => $fromAccount->balance - $amount]);
+        $fromAccount->update(['balance' => $fromAccount->balance - $amountInCents]);
 
         $currencyService = new CurrencyService();
 
@@ -45,8 +46,9 @@ class TransferController extends Controller
         $exchangeRateTo = $currencyService->exchangeRateFor($toAccount->currency);
 
         $amountAfterRate = ($amount / $exchangeRateFrom) * $exchangeRateTo;
+        $amountAfterRateInCents = $amountAfterRate * 100;
 
-        $toAccount->update(['balance' => $toAccount->balance + $amountAfterRate]);
+        $toAccount->update(['balance' => $toAccount->balance + $amountAfterRateInCents]);
 
         if($toAccount->owner_id == Auth()->user()->getAuthIdentifier()) {
             Transaction::create([
@@ -56,32 +58,35 @@ class TransferController extends Controller
                 'account_to' => $toAccount->account_number,
                 'account_from' => $fromAccount->account_number,
                 'currency' => $fromAccount->currency,
-                'amount' => $amount,
+                'amount' => $amountInCents,
                 'transaction' => 'relocate',
             ]);
-        } else {
-            Transaction::create([
-                'owner_id' => Auth()->user()->getAuthIdentifier(),
-                'transferee' => $request->get('name'),
-                'transferor' => $transferor->name . ' ' . $transferor->surname,
-                'account_to' => $toAccount->account_number,
-                'account_from' => $fromAccount->account_number,
-                'currency' => $fromAccount->currency,
-                'amount' => $amount,
-                'transaction' => 'transfer',
+
+            return redirect('/transfer')->with('success', 'Redirect successful.');
+        }
+
+        Transaction::create([
+            'owner_id' => Auth()->user()->getAuthIdentifier(),
+            'transferee' => $request->get('name'),
+            'transferor' => $transferor->name . ' ' . $transferor->surname,
+            'account_to' => $toAccount->account_number,
+            'account_from' => $fromAccount->account_number,
+            'currency' => $fromAccount->currency,
+            'amount' => $amountInCents,
+            'transaction' => 'transfer',
+        ]);
+
+        Transaction::create([
+            'owner_id' => $toAccount->owner_id,
+            'transferee' => $request->get('name'),
+            'transferor' => $transferor->name . ' ' . $transferor->surname,
+            'account_to' => $toAccount->account_number,
+            'account_from' => $fromAccount->account_number,
+            'currency' => $toAccount->currency,
+            'amount' => $amountAfterRateInCents,
+            'transaction' => 'receive',
             ]);
 
-            Transaction::create([
-                'owner_id' => $toAccount->owner_id,
-                'transferee' => $request->get('name'),
-                'transferor' => $transferor->name . ' ' . $transferor->surname,
-                'account_to' => $toAccount->account_number,
-                'account_from' => $fromAccount->account_number,
-                'currency' => $toAccount->currency,
-                'amount' => $amountAfterRate,
-                'transaction' => 'receive',
-            ]);
-        }
-        return redirect('/transfer');
+        return redirect('/transfer')->with('success', 'Transfer successful.');
     }
 }

@@ -87,7 +87,7 @@ class CryptoMarketController extends Controller
         $minimumCryptoAmount = 1;
 
         if($crypto['quote']['EUR']['price'] >= 1) {
-            $minimumCryptoAmount = 1 / $crypto['quote']['EUR']['price'];
+            $minimumCryptoAmount = sprintf("%.10f", 1 / $crypto['quote']['EUR']['price']);
         }
 
         $request->validate([
@@ -100,18 +100,20 @@ class CryptoMarketController extends Controller
         if($account->owner_id !== Auth::id()) {
             abort(403);
         }
-        $accountBalance = $account->balance;
+
         $exchangeRateForAccountCurrency = $this->currencyService->exchangeRateFor($account->currency);
 
         $totalPrice = $crypto['quote']['EUR']['price'] * (int)$request->get('amount');
         $totalPriceConverted = $totalPrice * $exchangeRateForAccountCurrency;
-        if($totalPriceConverted > $accountBalance) {
+        $totalPriceConvertedInCents = $totalPriceConverted * 100;
+
+        if($totalPriceConvertedInCents > $account->balance) {
             return back()->withErrors([
                 'total' => 'Insufficient funds',
             ])->onlyInput('amount');
         }
 
-        $account->update(['balance' => $accountBalance - $totalPriceConverted]);
+        $account->update(['balance' => $account->balance - $totalPriceConvertedInCents]);
 
         $ownedCrypto = CryptoCurrency::whereOwnerId(Auth()->user()->getAuthIdentifier())->where('crypto_id', $cryptoId);
         if($ownedCrypto->get()->isEmpty()) {
@@ -121,11 +123,14 @@ class CryptoMarketController extends Controller
                 'crypto_id' => (int)$cryptoId,
                 'symbol' => $crypto['symbol'],
                 'name' => $crypto['name'],
-                'price' => $totalPriceConverted,
+                'price' => $totalPriceConvertedInCents,
                 'amount' => $request->get('amount'),
             ]);
         } else {
-            $ownedCrypto->update(['amount' => $ownedCrypto->get()->first()['amount'] + $request->get('amount')]);
+            $ownedCrypto->update([
+                'amount' => $ownedCrypto->get()->first()['amount'] + $request->get('amount'),
+                'price' => $ownedCrypto->price + $totalPriceConvertedInCents
+            ]);
         }
 
         CryptoTransaction::create([
@@ -134,6 +139,7 @@ class CryptoMarketController extends Controller
             'crypto' => $crypto['symbol'],
             'transaction' => 'buy',
             'amount' => $request->get('amount'),
+            'price' => $totalPriceConvertedInCents
         ]);
 
         return redirect('/crypto/portfolio/' . $account->id);
@@ -164,11 +170,11 @@ class CryptoMarketController extends Controller
             abort(403);
         }
 
-        $accountBalance = $account->balance;
         $exchangeRateForAccountCurrency = $this->currencyService->exchangeRateFor($account->currency);
 
         $totalPrice = $crypto['quote']['EUR']['price'] * (int)$request->get('amount');
         $totalPriceConverted = $totalPrice * $exchangeRateForAccountCurrency;
+        $totalPriceConvertedInCents = $totalPriceConverted * 100;
 
         $ownedCrypto = CryptoCurrency::whereOwnerId(Auth()->user()->getAuthIdentifier())->where('crypto_id', $cryptoId);
 
@@ -177,10 +183,13 @@ class CryptoMarketController extends Controller
             $amount = $ownedCrypto->get()->first()['amount'];
             CryptoCurrency::destroy($ownedCrypto->get()->first()['id']);
         } else {
-            $ownedCrypto->update(['amount' => $ownedCrypto->get()->first()['amount'] - $amount]);
+            $ownedCrypto->update([
+                'amount' => $ownedCrypto->get()->first()['amount'] - $amount,
+                'price_sold' => $ownedCrypto->get()->first()['price-sold'] + $totalPriceConvertedInCents
+            ]);
         }
 
-        $account->update(['balance' => $accountBalance + $totalPriceConverted]);
+        $account->update(['balance' => $account->balance + $totalPriceConvertedInCents]);
 
         CryptoTransaction::create([
             'owner_id' => Auth()->user()->getAuthIdentifier(),
@@ -188,6 +197,7 @@ class CryptoMarketController extends Controller
             'crypto' => $crypto['symbol'],
             'transaction' => 'sell',
             'amount' => $amount,
+            'price' => $totalPriceConvertedInCents
         ]);
 
         return redirect('/crypto/portfolio/' . $account->id);

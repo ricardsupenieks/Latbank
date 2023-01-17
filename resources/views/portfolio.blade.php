@@ -18,10 +18,16 @@
                     Name
                 </th>
                 <th scope="col" class="px-6 py-3 text-end">
-                    Amount
+                    Amount Owned
                 </th>
                 <th scope="col" class="px-6 py-3 text-end">
-                    Bought For
+                    Total Bought Value
+                </th>
+                <th scope="col" class="px-6 py-3 text-end">
+                    Total Sold Value
+                </th>
+                <th scope="col" class="px-6 py-3 text-end">
+                    Profit
                 </th>
             </tr>
             </thead>
@@ -42,6 +48,12 @@
                     </td>
                     <td class="px-6 py-4 text-end">
                         {{$account->currency}} {{number_format($crypto['price'], 2)}}
+                    </td>
+                    <td class="px-6 py-4 text-end">
+                        {{$account->currency}} {{number_format($crypto['price_sold'], 2)}}
+                    </td>
+                    <td class="px-6 py-4 text-end">
+                        {{$account->currency}} {{number_format($crypto['price_sold'] - $crypto['price']), 2}}
                     </td>
                 </tr>
             @endforeach

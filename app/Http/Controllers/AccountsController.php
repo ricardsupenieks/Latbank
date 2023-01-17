@@ -25,7 +25,7 @@ class AccountsController extends Controller
             'owner_id' => Auth()->user()->getAuthIdentifier(),
             'account_number' => (new GenerateAccountNumber)->generateAccountNumber(),
             'currency' => $request->input('currency'),
-            'balance' => 0.00
+            'balance' => 0
         ]);
         return \redirect('accounts');
     }

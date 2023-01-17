@@ -71,7 +71,9 @@ class AccountController extends Controller
 
         $user = User::whereId($userId)->get()->first();
 
-        Account::whereId($accountId)->update(['balance' => $account->balance + $request->get('amount')]);
+        $amountInCents = $request->get('amount') * 100;
+
+        Account::whereId($accountId)->update(['balance' => $account->balance + $amountInCents]);
 
         Transaction::create([
             'owner_id' => Auth()->user()->getAuthIdentifier(),
@@ -80,10 +82,10 @@ class AccountController extends Controller
             'account_to' => $account->account_number,
             'account_from' => null,
             'currency' => $account->currency,
-            'amount' => $request->get('amount'),
+            'amount' => $amountInCents,
             'transaction' => 'deposit',
         ]);
-        return \redirect('/accounts');
+        return \redirect('/accounts')->with('success', 'Deposit successful.');
     }
 
     public function withdraw($accountNumber, Request $request)
@@ -103,7 +105,13 @@ class AccountController extends Controller
 
         $user = User::whereId($userId)->get()->first();
 
-        Account::whereId($accountId)->update(['balance' => $account->balance - $request->get('amount')]);
+        $amountInCents = $request->get('amount') * 100;
+
+        if($amountInCents > $account->balance) {
+            $amountInCents = $account->balance;
+        }
+
+        Account::whereId($accountId)->update(['balance' => $account->balance - $amountInCents]);
 
         Transaction::create([
             'owner_id' => Auth()->user()->getAuthIdentifier(),
@@ -112,10 +120,10 @@ class AccountController extends Controller
             'account_to' => null,
             'account_from' => $account->account_number,
             'currency' => $account->currency,
-            'amount' => $request->get('amount'),
+            'amount' => $amountInCents,
             'transaction' => 'withdraw',
         ]);
-        return \redirect('/accounts');
+        return \redirect('/accounts')->with('success', 'Withdrawal successful.');
     }
     public function close($accountNumber, Request $request)
     {
@@ -125,6 +133,6 @@ class AccountController extends Controller
 
         Account::whereAccountNumber($accountNumber)->delete();
 
-        return \redirect('/accounts');
+        return \redirect('/accounts')->with('success', 'Account ' . $accountNumber . ' has been closed');
     }
 }

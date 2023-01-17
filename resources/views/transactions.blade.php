@@ -35,7 +35,7 @@
                         @endif
                     </td>
                     <td>{{ucfirst($transaction['transaction'])}}</td>
-                    <td>{{number_format($transaction['amount'],  2)}} {{$transaction['currency']}}</td>
+                    <td>{{number_format($transaction['amount'] / 100,  2)}} {{$transaction['currency']}}</td>
                     <td>{{strtok($transaction['created_at'], ' ')}}</td>
                     <td>{{substr($transaction['created_at'], strpos($transaction['created_at'], " ") + 1)}}</td>
                 </tr>
@@ -53,6 +53,7 @@
                     <th data-priority="2">Crypto</th>
                     <th data-priority="3">Transaction</th>
                     <th data-priority="4">Amount</th>
+                    <th data-priority="5">Price</th>
                     <th data-priority="6">Date</th>
                     <th data-priority="7">Time</th>
                 </tr>
@@ -64,6 +65,7 @@
                         <td>{{$cryptoTransaction['crypto']}}</td>
                         <td>{{ucfirst($cryptoTransaction['transaction'])}}</td>
                         <td>{{number_format($cryptoTransaction['amount'])}}</td>
+                        <td>{{number_format($cryptoTransaction['price'] / 100, 2)}} {{$transaction['currency']}}</td>
                         <td>{{strtok($cryptoTransaction['created_at'], ' ')}}</td>
                         <td>{{substr($cryptoTransaction['created_at'], strpos($cryptoTransaction['created_at'], " ") + 1)}}</td>
                     </tr>

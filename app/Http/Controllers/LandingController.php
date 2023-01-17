@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\generateAccountNumber;
-use App\generateCode;
+use App\GenerateAccountNumber;
+use App\GenerateCode;
 use App\Models\Account;
 use App\Models\Code;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +24,7 @@ class LandingController extends Controller
                    'owner_id' => Auth()->user()->getAuthIdentifier(),
                     'account_number' => (new GenerateAccountNumber)->generateAccountNumber(),
                     'currency' => 'EUR',
-                    'balance' => 0.00
+                    'balance' => 0
                 ]);
 
                 for($i=0;$i<10;$i++) {

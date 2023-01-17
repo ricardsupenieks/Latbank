@@ -15,6 +15,7 @@ class CryptoCurrency extends Model
         'symbol',
         'name',
         'price',
+        'price_sold',
         'amount',
     ];
 }
