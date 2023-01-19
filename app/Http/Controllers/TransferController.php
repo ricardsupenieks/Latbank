@@ -78,8 +78,8 @@ class TransferController extends Controller
 
         Transaction::create([
             'owner_id' => $toAccount->owner_id,
-            'transferee' => $request->get('name'),
-            'transferor' => $transferor->name . ' ' . $transferor->surname,
+            'transferee' => $transferor->name . ' ' . $transferor->surname,
+            'transferor' => $request->get('name'),
             'account_to' => $toAccount->account_number,
             'account_from' => $fromAccount->account_number,
             'currency' => $toAccount->currency,

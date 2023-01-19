@@ -7,7 +7,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
     <!--Regular Datatables CSS-->
-    <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet">
     <!--Responsive Extension Datatables CSS-->
     <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet">
 
@@ -134,7 +134,7 @@
         }
     </style>
 </head>
-<body class="bg-red-800">
+<body class="bg-red-800 min-h-[100vh] flex flex-col">
 <header>
     <nav class="navbar navbar-default navbar-static-top bg-white px-2 sm:px-4 py-2.5 dark:bg-gray-900 w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
         <div class="container flex flex-wrap items-center justify-between mx-auto">
@@ -144,10 +144,10 @@
             </a>
             @if(!auth()->check() )
                 <div class="flex md:order-2">
-                    <button type="button" class="text-white bg-red-700  hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><a href="/login">Login</a></button>
+                    <button type="button" class="text-white bg-red-700  hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><a href="/login">Login</a></button>
                     @else
                         <div class="flex md:order-2">
-                            <button type="button" class="text-white bg-red-700  hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><a href="/logout">Logout</a></button>
+                            <button type="button" class="text-white bg-red-700  hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><a href="/logout">Logout</a></button>
                 @endif
             </div>
             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
@@ -188,5 +188,28 @@
             <p>{{session('success')}}</p>
         </div>
     @endif
+{{--<footer class="bg-white py-4 flex justify-evenly fixed bottom-0 w-full">--}}
+{{--    <a href="" class="text-gray-700">About us</a>--}}
+{{--    <a href="" class="text-gray-700">Contact us</a>--}}
+{{--    <a href="" class="text-gray-700">FAQ</a>--}}
+{{--    <a href="" class="text-gray-700">Join our team</a>--}}
+{{--</footer>--}}
+<footer class="p-4 bg-white shadow mt-auto flex flex-row">
+    <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="/" class="hover:underline">Latbank™</a>. All Rights Reserved.</span>
+    <ul class="flex flex-wrap items-center text-sm text-gray-500 ml-auto">
+        <li>
+            <a href="#" class="mr-4 hover:underline md:mr-6 ">About</a>
+        </li>
+        <li>
+            <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
+        </li>
+        <li>
+            <a href="#" class="mr-4 hover:underline md:mr-6">Licensing</a>
+        </li>
+        <li>
+            <a href="#" class="hover:underline">Contact</a>
+        </li>
+    </ul>
+</footer>
 </body>
 </html>

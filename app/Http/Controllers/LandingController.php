@@ -6,8 +6,12 @@ use App\GenerateAccountNumber;
 use App\GenerateCode;
 use App\Models\Account;
 use App\Models\Code;
+use App\Models\CryptoCurrency;
+use App\Models\CryptoTransaction;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use PHPUnit\TextUI\XmlConfiguration\Group;
 
 class LandingController extends Controller
 {
@@ -40,8 +44,20 @@ class LandingController extends Controller
 
             $codes = Code::whereOwnerId(Auth::user()->getAuthIdentifier())->get();
 
-            return view('home', ['firstTimeLogin' => $firstTimeLogin, 'codes' => $codes]);
+            $accounts = Account::whereOwnerId(Auth::user()->getAuthIdentifier())->take(5)->get();
+
+            $bankingTransactions = Transaction::whereOwnerId(Auth::user()->getAuthIdentifier())->take(5)->get();
+            $cryptoTransactions = CryptoTransaction::whereOwnerId(Auth::user()->getAuthIdentifier())->take(5)->get();
+
+            return view('home', [
+                'firstTimeLogin' => $firstTimeLogin,
+                'codes' => $codes,
+                'bankingTransactions' => $bankingTransactions,
+                'cryptoTransactions' => $cryptoTransactions,
+                'accounts' => $accounts,
+                ]);
         }
+
         return view('landing');
     }
 }

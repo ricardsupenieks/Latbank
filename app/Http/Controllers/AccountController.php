@@ -28,21 +28,11 @@ class AccountController extends Controller
         $accountId = $account->id;
         $cryptos = json_decode(CryptoCurrency::whereAccountId($accountId)->get(), true);
 
-        $transactions = [];
-        $transactionsFrom = json_decode(Transaction::whereAccountFrom($accountNumber)->get(), true);
-        $transactionsTo = json_decode(Transaction::whereAccountTo($accountNumber)->get(), true);
-
-        foreach ($transactionsFrom as $transactionFrom) {
-            $transactions[]=$transactionFrom;
-        }
-
-        foreach ($transactionsTo as $transactionTo) {
-            $transactions[]=$transactionTo;
-        }
+        $transactions = json_decode(Transaction::whereOwnerId(Auth()->user()->getAuthIdentifier())->orderBy('created_at', 'desc')->get(), true);
 
         $cryptoTransactions = CryptoTransaction::whereAccountNumber($accountNumber)->get();
 
-        $codes = json_decode(Code::whereOwnerId(Auth::user()->getAuthIdentifier())->get(), true);
+        $codes = json_decode(Code::whereOwnerId(Auth::user()->getAuthIdentifier())->orderBy('created_at', 'desc')->get(), true);
         $randomCodeId = array_rand($codes);
 
         return view('account', [

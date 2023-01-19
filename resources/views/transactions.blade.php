@@ -3,13 +3,13 @@
 @section('content')
 <body class="text-gray-900 tracking-wider leading-normal">
 
-<div class="container w-full md:w-4/5 xl:w-3/5  mx-auto px-2">
+<div class="container w-full md:w-4/5 xl:w-3/5 mx-auto px-2">
     <h1 class="flex items-center font-sans font-bold break-normal text-white px-2 py-8 text-xl md:text-2xl">
        Transactions
     </h1>
     <div class="flex flex-col gap-20">
         <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
-            <h1 class="mb-4 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white border-b-4 border-black">Bank transactions</h1>
+            <h1 class="mb-4 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl text-center border-b">Bank transactions</h1>
             <table id="bank" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                 <thead>
                 <tr>
@@ -23,29 +23,29 @@
                 </thead>
                 <tbody>
                 @foreach($transactions as $transaction)
-                <tr>
-                    <td>
-                        @if(isset($transaction['account_to']))
-                            {{$transaction['transferee']}} ( {{$transaction['account_to']}} )
-                        @endif
-                    </td>
-                    <td>
-                        @if(isset($transaction['account_from']))
-                            {{$transaction['transferor']}} ( {{$transaction['account_from']}} )
-                        @endif
-                    </td>
-                    <td>{{ucfirst($transaction['transaction'])}}</td>
-                    <td>{{number_format($transaction['amount'] / 100,  2)}} {{$transaction['currency']}}</td>
-                    <td>{{strtok($transaction['created_at'], ' ')}}</td>
-                    <td>{{substr($transaction['created_at'], strpos($transaction['created_at'], " ") + 1)}}</td>
-                </tr>
+                    <tr>
+                        <td>
+                            @if(isset($transaction['account_to']))
+                                {{$transaction['transferee']}} ( {{$transaction['account_to']}} )
+                            @endif
+                        </td>
+                        <td>
+                            @if(isset($transaction['account_from']))
+                                {{$transaction['transferor']}} ( {{$transaction['account_from']}} )
+                            @endif
+                        </td>
+                        <td>{{ucfirst($transaction['transaction'])}}</td>
+                        <td>{{number_format($transaction['amount'] / 100,  2)}} {{$transaction['currency']}}</td>
+                        <td>{{strtok($transaction['created_at'], ' ')}}</td>
+                        <td>{{substr($transaction['created_at'], strpos($transaction['created_at'], " ") + 1)}}</td>
+                    </tr>
                 @endforeach
                 </tbody>
             </table>
         </div>
 
         <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white mb-20">
-            <h1 class="mb-4 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white border-b-4 border-black">Crypto transactions</h1>
+            <h1 class="mb-4 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl text-center border-b">Crypto transactions</h1>
             <table id="crypto" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                 <thead>
                 <tr>

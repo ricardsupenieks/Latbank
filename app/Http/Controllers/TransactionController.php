@@ -9,11 +9,11 @@ use Illuminate\View\View;
 
 class TransactionController extends Controller
 {
-    public function showForm(): View
+    public function showForm()
     {
-        $transactions = Transaction::whereOwnerId(Auth::user()->getAuthIdentifier())->get();
+        $transactions = Transaction::whereOwnerId(Auth::user()->getAuthIdentifier())->orderBy('created_at', 'desc')->get();
 
-        $cryptoTransactions = CryptoTransaction::whereOwnerId(Auth::user()->getAuthIdentifier())->get();
+        $cryptoTransactions = CryptoTransaction::whereOwnerId(Auth::user()->getAuthIdentifier())->orderBy('created_at', 'desc')->get();
 
         return \view('transactions', ['transactions' => $transactions, 'cryptoTransactions' => $cryptoTransactions]);
     }
