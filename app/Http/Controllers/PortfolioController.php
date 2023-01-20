@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Account;
 use App\Models\CryptoCurrency;
-use Illuminate\Http\Request;
 
 class PortfolioController extends Controller
 {

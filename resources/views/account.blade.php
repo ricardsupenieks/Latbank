@@ -217,7 +217,7 @@
                 </table>
             </div>
 
-            <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded-lg shadow bg-white mb-10">
+            <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded-lg shadow bg-white mb-32">
                 <h1 class="mb-4 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl text-center border-b">Crypto transactions</h1>
                 <table id="crypto" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
                     <thead>

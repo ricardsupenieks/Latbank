@@ -6,7 +6,6 @@ use App\Models\Account;
 use App\Models\Code;
 use App\Models\CryptoCurrency;
 use App\Models\CryptoTransaction;
-use App\Models\Transaction;
 use App\Services\CryptoService;
 use App\Services\CurrencyService;
 use Illuminate\Http\RedirectResponse;

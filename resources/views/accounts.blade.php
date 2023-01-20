@@ -6,7 +6,7 @@
             Accounts
         </h1>
     </div>
-        <div class="flex flex-row flex-wrap gap-10 ml-[80px]">
+        <div class="flex flex-row flex-wrap gap-10 ml-[80px] mb-30">
             @foreach ($accounts as $account)
                 <div class="w-80 rounded overflow-hidden shadow-lg bg-white">
                     <a href="/account/{{$account['account_number']}}">

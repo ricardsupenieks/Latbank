@@ -33,11 +33,11 @@
         <div class="flex flex-col justify-center w-1/4">
             <div class="w-full">
                 <div class="overflow-hidden">
-                    <img class="h-36 w-96 rounded-lg" src="/images/bitcoin.jpg">
+                    <a href="#"><img class="h-36 w-96 rounded-lg" src="/images/bitcoin.jpg"></a>
                 </div>
                 <div class="mt-2">
                     <h1 class="font-medium my-2">
-                        The Digital Future: Exploring Cryptocurrency Opportunities
+                        <a href="#">The Digital Future: Exploring Cryptocurrency Opportunities</a>
                     </h1>
                     <p>
                         Lorem ipsum dolor sit amet. Ea ipsa iusto At ullam voluptatem ea consequatur distinctio aut modi autem!
@@ -49,11 +49,11 @@
         <div class="flex flex-col justify-center w-1/4">
             <div class="w-full">
                 <div>
-                    <img class="h-36 w-96 rounded-lg" src="/images/loan.jpg">
+                    <a href="#"><img class="h-36 w-96 rounded-lg" src="/images/loan.jpg"></a>
                 </div>
                 <div>
                     <h1 class="font-medium my-2">
-                        Homeownership Dreams: Affordable Home Loan Solutions
+                        <a href="#">Homeownership Dreams: Affordable Home Loan Solutions</a>
                     </h1>
                     <p>
                         Lorem ipsum dolor sit amet. Ea ipsa iusto At ullam voluptatem ea consequatur distinctio aut modi autem!
@@ -65,11 +65,11 @@
         <div class="flex flex-col justify-center w-1/4">
             <div class="w-full">
                 <div>
-                    <img class="h-36 w-96 rounded-lg" src="/images/pension.jpg">
+                    <a href="#"><img class="h-36 w-96 rounded-lg" src="/images/pension.jpg"></a>
                 </div>
                 <div>
                     <h1 class="font-medium my-2">
-                        Secure Retirement: A Comprehensive Pension Plan
+                        <a href="#">Secure Retirement: A Comprehensive Pension Plan</a>
                     </h1>
                     <p>
                         Lorem ipsum dolor sit amet. Ea ipsa iusto At ullam voluptatem ea consequatur distinctio aut modi autem!
@@ -81,11 +81,11 @@
         <div class="flex flex-col justify-center w-1/4">
             <div class="w-full2/4">
                 <div>
-                    <img class="h-36 w-96 rounded-lg" src="/images/family.jpg">
+                    <a href="#"><img class="h-36 w-96 rounded-lg" src="/images/family.jpg"></a>
                 </div>
                 <div>
                     <h1 class="font-medium my-2">
-                        Building a Strong Foundation: The Family Plan
+                        <a href="#">Building a Strong Foundation: The Family Plan</a>
                     </h1>
                     <p>
                         Lorem ipsum dolor sit amet. Ea ipsa iusto At ullam voluptatem ea consequatur distinctio aut modi autem!

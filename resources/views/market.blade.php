@@ -24,7 +24,7 @@
         </form>
     </div>
 
-    <div class="flex justify-center relative">
+    <div class="flex justify-center relative mb-32">
         <table class="w-3/4 text-sm text-left text-gray-500 dark:text-gray-400 shadow-md mb-20">
             <thead class="text-xs text-black uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-t-sm sticky top-0">
             <tr>

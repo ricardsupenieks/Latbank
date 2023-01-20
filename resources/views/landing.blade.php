@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-    <div class="flex">
+    <div class="flex mb-60">
         <img src="/images/latbankRed.webp" class="">
 
         <span class="self-center text-9xl font-semibold whitespace-nowrap text-white">Latbank
