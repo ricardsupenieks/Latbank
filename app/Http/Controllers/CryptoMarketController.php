@@ -155,7 +155,7 @@ class CryptoMarketController extends Controller
         $minimumCryptoAmount = 1;
 
         if($crypto['quote']['EUR']['price'] >= 1) {
-            $minimumCryptoAmount = 1 / $crypto['quote']['EUR']['price'];
+            $minimumCryptoAmount = sprintf("%.10f", 1 / $crypto['quote']['EUR']['price']);
         }
 
         $request->validate([
@@ -184,7 +184,7 @@ class CryptoMarketController extends Controller
         } else {
             $ownedCrypto->update([
                 'amount' => $ownedCrypto->get()->first()['amount'] - $amount,
-                'price_sold' => $ownedCrypto->get()->first()['price-sold'] + $totalPriceConvertedInCents
+                'price_sold' => $ownedCrypto->get()->first()['price_sold'] + $totalPriceConvertedInCents
             ]);
         }
 
@@ -195,7 +195,7 @@ class CryptoMarketController extends Controller
             'account_number' => $request->get('account'),
             'crypto' => $crypto['symbol'],
             'transaction' => 'sell',
-            'amount' => $amount,
+            'amount' => sprintf("%.10f", $amount),
             'price' => $totalPriceConvertedInCents
         ]);
 

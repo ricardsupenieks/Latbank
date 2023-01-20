@@ -62,7 +62,7 @@ class TransferController extends Controller
                 'transaction' => 'relocate',
             ]);
 
-            return redirect('/transfer')->with('success', 'Redirect successful.');
+            return redirect('/transfer')->with('success', 'Relocation successful.');
         }
 
         Transaction::create([
@@ -78,10 +78,10 @@ class TransferController extends Controller
 
         Transaction::create([
             'owner_id' => $toAccount->owner_id,
-            'transferee' => $transferor->name . ' ' . $transferor->surname,
-            'transferor' => $request->get('name'),
+            'transferee' => $request->get('name'),
+            'transferor' => $transferor->name . ' ' . $transferor->surname,
             'account_to' => $toAccount->account_number,
-            'account_from' => $fromAccount->account_number,
+            'account_from' => $toAccount->account_number,
             'currency' => $toAccount->currency,
             'amount' => $amountAfterRateInCents,
             'transaction' => 'receive',

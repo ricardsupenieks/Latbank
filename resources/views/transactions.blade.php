@@ -64,7 +64,7 @@
                         <td>{{$cryptoTransaction['account_number']}}</td>
                         <td>{{$cryptoTransaction['crypto']}}</td>
                         <td>{{ucfirst($cryptoTransaction['transaction'])}}</td>
-                        <td>{{number_format($cryptoTransaction['amount'])}}</td>
+                        <td>{{$cryptoTransaction['amount'] + 0}}</td>
                         <td>{{number_format($cryptoTransaction['price'] / 100, 2)}} {{$transaction['currency']}}</td>
                         <td>{{strtok($cryptoTransaction['created_at'], ' ')}}</td>
                         <td>{{substr($cryptoTransaction['created_at'], strpos($cryptoTransaction['created_at'], " ") + 1)}}</td>

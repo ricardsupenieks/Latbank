@@ -44,16 +44,16 @@
                         </a>
                     </th>
                     <td class="px-6 py-4 text-end">
-                        {{$crypto['amount']}}
+                        {{$crypto['amount'] + 0}}
                     </td>
                     <td class="px-6 py-4 text-end">
-                        {{$account->currency}} {{number_format($crypto['price'], 2)}}
+                        {{$account->currency}} {{number_format($crypto['price'] / 100, 2)}}
                     </td>
                     <td class="px-6 py-4 text-end">
-                        {{$account->currency}} {{number_format($crypto['price_sold'], 2)}}
+                        {{$account->currency}} {{number_format($crypto['price_sold'] / 100, 2)}}
                     </td>
                     <td class="px-6 py-4 text-end">
-                        {{$account->currency}} {{number_format($crypto['price_sold'] - $crypto['price']), 2}}
+                        {{$account->currency}} {{number_format(($crypto['price_sold'] - $crypto['price']) / 100), 2}}
                     </td>
                 </tr>
             @endforeach

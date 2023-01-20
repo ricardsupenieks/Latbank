@@ -17,11 +17,11 @@
                             <div class="flex flex-row font-bold mb-1 mt-1 place-content-between">
                                 <div class="truncate">
                                     <p class="text-5xl mt-1">{{$account['currency']}}</p>
-                                    <p class="max-w-[298px] text-3xl truncate"> {{number_format($account['balance'],2)}}</p>
+                                    <p class="max-w-[298px] text-3xl truncate"> {{number_format($account['balance'] / 100 ,2)}}</p>
                                 </div>
                                 <div class="flex flex-col font-bold text-sm mb-1 mt-1 right-0 gap-4">
                                     <div x-data="{deposit_form: false}">
-                                        <button class="bg-red-600 shadow-lg shadow-shadow-red-600 text-white cursor-pointer px-3 text-center justify-center items-center py-1 rounded-xl"
+                                        <button class="ml-10 bg-red-600 shadow-lg shadow-shadow-red-600 text-white cursor-pointer px-3 text-center justify-center items-center py-1 rounded-xl"
                                                    type="button" name="deposit" id="deposit"
                                                 @click="deposit_form = true"
                                         >
@@ -56,7 +56,7 @@
                                     </div>
 
                                     <div x-data="{withdraw_form: false}">
-                                        <button class="bg-red-600 shadow-lg shadow-shadow-red-600 text-white cursor-pointer px-3 text-center justify-center items-center py-1 rounded-xl"
+                                        <button class="ml-10 bg-red-600 shadow-lg shadow-shadow-red-600 text-white cursor-pointer px-3 text-center justify-center items-center py-1 rounded-xl"
                                                    type="button" name="withdraw" id="withdraw"
                                                 @click="withdraw_form = true"
                                         >
@@ -90,7 +90,7 @@
                                     </div>
 
                                     <div x-data="{close_form: false}">
-                                        <button class="bg-red-600 shadow-lg shadow-shadow-red-600 text-white cursor-pointer px-3 text-center justify-center items-center py-1 rounded-xl"
+                                        <button class="ml-10 bg-red-600 shadow-lg shadow-shadow-red-600 text-white cursor-pointer px-3 text-center justify-center items-center py-1 rounded-xl"
                                                 type="button" name="close" id="close"
                                                 @click="close_form = true"
                                         >
@@ -123,9 +123,6 @@
                                     </div>
                                 </div>
                             </div>
-{{--                        <div class="py-5">--}}
-{{--                            Opened on : {{strtok($account['created_at'], ' ')}} | {{substr($account['created_at'], strpos($account['created_at'], " ") + 1)}}--}}
-{{--                        </div>--}}
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
@@ -196,22 +193,6 @@
                             <td>{{strtok($transaction['created_at'], 'T')}}</td>
                             <td>{{strtok(substr($transaction['created_at'], strpos($transaction['created_at'], "T") + 1), '.')}}</td>
                         </tr>
-{{--                        <tr>--}}
-{{--                            <td>--}}
-{{--                                @if(isset($transaction->account_to))--}}
-{{--                                    {{$transaction->transferee}} ( {{$transaction->account_to}} )--}}
-{{--                                @endif--}}
-{{--                            </td>--}}
-{{--                            <td>--}}
-{{--                                @if(isset($transaction->account_from))--}}
-{{--                                    {{$transaction->transferor}} ( {{$transaction->account_from}} )--}}
-{{--                                @endif--}}
-{{--                            </td>--}}
-{{--                            <td>{{ucfirst($transaction->transaction)}}</td>--}}
-{{--                            <td>{{number_format($transaction->amount / 100,  2)}} {{$transaction->currency}}</td>--}}
-{{--                            <td>{{strtok($transaction->created_at, 'T')}}</td>--}}
-{{--                            <td>{{strtok(substr($transaction->created_at, strpos($transaction->created_at, "T") + 1), '.')}}</td>--}}
-{{--                        </tr>--}}
                     @endforeach
                     </tbody>
                 </table>
@@ -237,7 +218,7 @@
                             <td>{{$cryptoTransaction['account_number']}}</td>
                             <td>{{$cryptoTransaction['crypto']}}</td>
                             <td>{{ucfirst($cryptoTransaction['transaction'])}}</td>
-                            <td>{{number_format($cryptoTransaction['amount'])}}</td>
+                            <td>{{$cryptoTransaction['amount'] + 0}}</td>
                             <td>{{number_format($cryptoTransaction['price'] / 100, 2)}} {{$account['currency']}}</td>
                             <td>{{strtok($cryptoTransaction['created_at'], ' ')}}</td>
                             <td>{{strtok(substr($cryptoTransaction['created_at'], strpos($cryptoTransaction['created_at'], " ") + 1), '.')}}</td>

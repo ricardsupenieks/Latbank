@@ -188,12 +188,6 @@
             <p>{{session('success')}}</p>
         </div>
     @endif
-{{--<footer class="bg-white py-4 flex justify-evenly fixed bottom-0 w-full">--}}
-{{--    <a href="" class="text-gray-700">About us</a>--}}
-{{--    <a href="" class="text-gray-700">Contact us</a>--}}
-{{--    <a href="" class="text-gray-700">FAQ</a>--}}
-{{--    <a href="" class="text-gray-700">Join our team</a>--}}
-{{--</footer>--}}
 <footer class="p-4 bg-white shadow mt-auto flex flex-row">
     <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="/" class="hover:underline">Latbank™</a>. All Rights Reserved.</span>
     <ul class="flex flex-wrap items-center text-sm text-gray-500 ml-auto">
