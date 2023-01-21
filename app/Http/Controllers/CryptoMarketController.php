@@ -92,8 +92,15 @@ class CryptoMarketController extends Controller
         $request->validate([
             'account' => ['required', 'exists:accounts,account_number'],
             'amount' => ['required', 'numeric', 'min:' . $minimumCryptoAmount],
-            'code_input' => ['required', 'exists:codes,code'],
         ]);
+
+        $userCodes = Code::whereOwnerId(Auth::user()->getAuthIdentifier())->get();
+
+        if(!$userCodes->contains('code', $request->get('code_input'))) {
+            return back()->withErrors([
+                'code' => 'Incorrect code',
+            ]);
+        }
 
         $account = Account::whereAccountNumber($request->get('account'))->get()->first();
         if($account->owner_id !== Auth::id()) {
