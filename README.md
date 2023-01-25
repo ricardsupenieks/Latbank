@@ -33,26 +33,26 @@
 
 ## Demo
 
-# Landing Page
-!()[https://github.com/ricardsupenieks/Latbank/blob/main/demo/mainPageLogin.png]
+### Landing Page
+![](https://github.com/ricardsupenieks/Latbank/blob/main/demo/mainPageLogin.png)
 
-# Accounts Overview
-!()[https://github.com/ricardsupenieks/Latbank/blob/main/demo/accounts.png]
+### Accounts Overview
+![](https://github.com/ricardsupenieks/Latbank/blob/main/demo/accounts.png)
 
-# Account Overview
-!()[https://github.com/ricardsupenieks/Latbank/blob/main/demo/account.gif]
+### Account Overview
+![](https://github.com/ricardsupenieks/Latbank/blob/main/demo/account.gif)
 
-# Transactions
-!()[https://github.com/ricardsupenieks/Latbank/blob/main/demo/transactions.gif]
+### Transactions
+![](https://github.com/ricardsupenieks/Latbank/blob/main/demo/transactions.gif)
 
-# Transfer
-!()[https://github.com/ricardsupenieks/Latbank/blob/main/demo/transfer.gif]
+### Transfer
+![](https://github.com/ricardsupenieks/Latbank/blob/main/demo/transfer.gif)
 
-# Crypto Market
-!()[https://github.com/ricardsupenieks/Latbank/blob/main/demo/cryptos.gif]
+### Crypto Market
+![](https://github.com/ricardsupenieks/Latbank/blob/main/demo/cryptos.gif)
 
-# Buying Cryptos
-!()[https://github.com/ricardsupenieks/Latbank/blob/main/demo/buy.gif]
+### Buying Cryptos
+![](https://github.com/ricardsupenieks/Latbank/blob/main/demo/buy.gif)
 
-# Selling Cryptos
-!()[https://github.com/ricardsupenieks/Latbank/blob/main/demo/sell.gif]
+### Selling Cryptos
+![](https://github.com/ricardsupenieks/Latbank/blob/main/demo/sell.gif)
