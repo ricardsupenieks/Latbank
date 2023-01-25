@@ -24,9 +24,9 @@
 ## Installation
 1. Clone this repository
 2. Run npm install in terminal
-3. Run php artisan migrate in terminal
-5. Create an account on https://exchangeratesapi.io/ to get the EXCHANGE_RATES_API_KEY
-6. Create an account on https://coinmarketcap.com/ to get the COIN_MARKET_CAP_API_KEY
-7. Rename ".env.example" to ".env" and enter the correct information in the parenthesis
-8. Import the "schema.sql"
-9. You can run the development website by typing the following command in terminal: php artisan serve
+3. Create an account on https://exchangeratesapi.io/ to get the EXCHANGE_RATES_API_KEY
+4. Create an account on https://coinmarketcap.com/ to get the COIN_MARKET_CAP_API_KEY
+5. Rename ".env.example" to ".env" and enter the correct information in the parenthesis
+6. Import the "schema.sql"
+7. Run php artisan migrate in terminal
+8. You can run the development website by typing the following command in terminal: php artisan serve
