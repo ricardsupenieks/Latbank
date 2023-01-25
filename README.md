@@ -15,6 +15,7 @@
 * Buy and sell crypto currencies
 * Transaction history
 
+##
 ## Requirements
 * PHP version: 7.4 
 * MySQL version: 8.0.31
