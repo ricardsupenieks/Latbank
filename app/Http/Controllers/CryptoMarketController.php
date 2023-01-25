@@ -61,7 +61,7 @@ class CryptoMarketController extends Controller
         $cryptoAccounts = [];
 
         if (!$cryptoAccountIds->isEmpty()) {
-            $cryptoAccounts = Account::whereId($cryptoAccountIds)->get();
+            $cryptoAccounts = Account::whereIn('id', $cryptoAccountIds)->get();
         }
 
         $codes = json_decode(Code::whereOwnerId(Auth::user()->getAuthIdentifier())->get(), true);
@@ -121,8 +121,9 @@ class CryptoMarketController extends Controller
 
         $account->update(['balance' => $account->balance - $totalPriceConvertedInCents]);
 
-        $ownedCrypto = CryptoCurrency::whereOwnerId(Auth()->user()->getAuthIdentifier())->where('crypto_id', $cryptoId);
-        if($ownedCrypto->get()->isEmpty()) {
+        $ownedCrypto = CryptoCurrency::whereAccountId($account->id)->where('crypto_id', $cryptoId)->get();
+
+        if($ownedCrypto->isEmpty()) {
             CryptoCurrency::create([
                 'owner_id' => Auth()->user()->getAuthIdentifier(),
                 'account_id' => $account->id,
@@ -134,8 +135,8 @@ class CryptoMarketController extends Controller
             ]);
         } else {
             $ownedCrypto->update([
-                'amount' => $ownedCrypto->get()->first()['amount'] + $request->get('amount'),
-                'price' => $ownedCrypto->price + $totalPriceConvertedInCents
+                'amount' => $ownedCrypto->first()['amount'] + $request->get('amount'),
+                'price' => $ownedCrypto->first()->price + $totalPriceConvertedInCents
             ]);
         }
 
@@ -182,7 +183,7 @@ class CryptoMarketController extends Controller
         $totalPriceConverted = $totalPrice * $exchangeRateForAccountCurrency;
         $totalPriceConvertedInCents = $totalPriceConverted * 100;
 
-        $ownedCrypto = CryptoCurrency::whereOwnerId(Auth()->user()->getAuthIdentifier())->where('crypto_id', $cryptoId);
+        $ownedCrypto = CryptoCurrency::whereAccountId($account->id)->where('crypto_id', $cryptoId);
 
         $amount = $request->get('amount');
         if ($amount >= $ownedCrypto->get()->first()['amount']) {
