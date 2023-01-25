@@ -30,3 +30,29 @@
 6. Import the "schema.sql"
 7. Run php artisan migrate in terminal
 8. You can run the development website by typing the following command in terminal: php artisan serve
+
+## Demo
+
+# Landing Page
+!()[https://github.com/ricardsupenieks/Latbank/blob/main/demo/mainPageLogin.png]
+
+# Accounts Overview
+!()[https://github.com/ricardsupenieks/Latbank/blob/main/demo/accounts.png]
+
+# Account Overview
+!()[https://github.com/ricardsupenieks/Latbank/blob/main/demo/account.gif]
+
+# Transactions
+!()[https://github.com/ricardsupenieks/Latbank/blob/main/demo/transactions.gif]
+
+# Transfer
+!()[https://github.com/ricardsupenieks/Latbank/blob/main/demo/transfer.gif]
+
+# Crypto Market
+!()[https://github.com/ricardsupenieks/Latbank/blob/main/demo/cryptos.gif]
+
+# Buying Cryptos
+!()[https://github.com/ricardsupenieks/Latbank/blob/main/demo/buy.gif]
+
+# Selling Cryptos
+!()[https://github.com/ricardsupenieks/Latbank/blob/main/demo/sell.gif]
