@@ -23,7 +23,7 @@
 
 ## Installation
 1. Clone this repository
-2. Run npm install in terminal
+2. Run composer install in terminal
 3. Create an account on https://exchangeratesapi.io/ to get the EXCHANGE_RATES_API_KEY
 4. Create an account on https://coinmarketcap.com/ to get the COIN_MARKET_CAP_API_KEY
 5. Rename ".env.example" to ".env" and enter the correct information in the parenthesis
